@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+// Importe o HeadersConfigurer
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -49,11 +50,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/categorias/**").permitAll()
 
                         // Trava o POST/PUT/DELETE de produtos e categorias para ADMIN
-                        .requestMatchers("/api/produtos/**").hasAuthority("ADMIN")
-                        .requestMatchers("/api/categorias/**").hasAuthority("ADMIN")
+                        .requestMatchers("/api/produtos/**").hasRole("ADMIN")
+                        .requestMatchers("/api/categorias/**").hasRole("ADMIN")
 
                         // Trava pedidos para CLIENTE
-                        .requestMatchers("/api/pedidos/**").hasAuthority("CLIENTE")
+                        .requestMatchers("/api/pedidos/**").hasRole("CLIENTE")
 
                         // Qualquer outra rota exige autenticação
                         .anyRequest().authenticated()
